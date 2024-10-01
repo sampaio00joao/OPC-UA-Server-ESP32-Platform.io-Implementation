@@ -1,0 +1,110 @@
+menu "Connection Configuration"
+
+    choice EXAMPLE_CONNECTION_TYPE
+        prompt "Connection Type"
+        default EXAMPLE_CONNECT_WIFI
+        help
+            Choose Wi-Fi or ethernet connection.
+
+        config EXAMPLE_CONNECT_WIFI
+            bool "Wi-Fi"
+            help
+                Select internal Ethernet MAC controller.
+
+        config EXAMPLE_CONNECT_ETHERNET
+            bool "Ethernet"
+            help
+                Select external SPI-Ethernet module (DM9051).
+
+    endchoice # EXAMPLE_CONNETION_TYPE
+
+
+	config WIFI_SSID
+		string "WiFi SSID"
+		default "OPCUATaskForce"
+		help
+			Network Name
+
+	config WIFI_PASSWORD
+		string "WiFi Password"
+		default "OPCUApubsub"
+		help
+			WiFi Password (WPA or WPA2)
+
+	config USE_STATIC_IP
+		bool "Static IP"
+		default ""
+		help
+			Set to use static ip for ethernet connection.
+
+	config ETHERNET_HELPER_STATIC_IP4_ADDRESS
+		string "Ip Address"
+		default "192.168.1.110"
+		help
+			Static IP address.
+
+	config ETHERNET_HELPER_STATIC_GATEWAY
+		string "Gateway"
+		default "192.169.1.1"
+		help
+			Static gateway address.
+
+	config ETHERNET_HELPER_STATIC_NETMASK
+		string "Netmask"
+		default "255.255.255.0"
+		help
+			Netmask
+	
+	config DNS_ADDRESS
+		string "DNS"
+		default "8.8.8.8"
+		help
+			DNS
+
+endmenu
+
+menu "Debug Configuration"
+
+	config UA_LOGLEVEL
+		int "Open62541 Server Log Level"
+		range 100 600
+		default 600
+		help
+			100 = TRACE
+			200 = DEBUG
+			300 = INFO
+			400 = WARNING
+			500 = ERROR
+	        600 = FATAL
+endmenu
+
+menu "BME680 Configuration"
+    choice EXAMPLE_I2C_ADDRESS
+        prompt "Select I2C address"
+        default EXAMPLE_I2C_ADDRESS_0
+        help
+            Select I2C address.
+
+        config EXAMPLE_I2C_ADDRESS_0
+            bool "BME680_I2C_ADDR_0 (0x76)"
+        config EXAMPLE_I2C_ADDRESS_1
+            bool "BME680_I2C_ADDR_1 (0x77)"
+    endchoice
+
+    config EXAMPLE_I2C_MASTER_SCL
+        int "SCL GPIO Number"
+        default 5 if IDF_TARGET_ESP8266
+        default 6 if IDF_TARGET_ESP32C3
+        default 19 if IDF_TARGET_ESP32 || IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+        help
+            GPIO number for I2C Master clock line.
+
+    config EXAMPLE_I2C_MASTER_SDA
+        int "SDA GPIO Number"
+        default 4 if IDF_TARGET_ESP8266
+        default 5 if IDF_TARGET_ESP32C3
+        default 18 if IDF_TARGET_ESP32 || IDF_TARGET_ESP32S2 || IDF_TARGET_ESP32S3
+        help
+            GPIO number for I2C Master data line.
+endmenu
+
