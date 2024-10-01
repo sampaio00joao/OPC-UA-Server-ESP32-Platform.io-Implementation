@@ -1,5 +1,7 @@
 # OPC-UA-Server-ESP32-Platform.io-Implementation
 
+## *Version:* Server still works on the 6.9.0 version of Espressif 32 IDF
+
 ## *Context:*
 This project involves deploying an OPC-UA server on an ESP32 microcontroller with a minimalistic information model, using either WIFI or Ethernet. The server retrieves data from the MSA311 sensor, mapping the X, Y, and Z axis components into individual OPC-UA nodes. The primary objective is to enable efficient server-client communication between a workstation and a Node-RED implementation, which processes the sensor data.
 
